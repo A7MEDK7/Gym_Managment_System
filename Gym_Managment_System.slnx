@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/GMS.Core/">
+    <Project Path="GMS.Core/Domin/Domin.csproj" />
+    <Project Path="GMS.Core/Service.Abstraction/Services.Abstraction.csproj" />
+    <Project Path="GMS.Core/Service/Services.csproj" />
+  </Folder>
+  <Folder Name="/GMS.Infrastructure/">
+    <Project Path="GMS.Infrastructure/Presentation/Presentation.csproj" />
+    <Project Path="GMS.Infrastructure/Presistence/Presistence.csproj" />
+  </Folder>
+  <Project Path="GMS.MVC/GMS.MVC.csproj" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>
