@@ -1,12 +1,36 @@
+using Domin.Contract;
+using Microsoft.EntityFrameworkCore;
+using Presistence.Data;
+using static System.Net.Mime.MediaTypeNames;
+
 namespace GMS.MVC {
     public class Program {
-        public static void Main(string[] args) {
+        public static async Task Main(string[] args) {
+
             var builder = WebApplication.CreateBuilder(args);
 
+            #region Add Services
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Database Configuration
+            builder.Services.AddDbContext<GymDbContext>(options => {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnections"));
+            });
+
+            // Allow DI To DbInitilazer 
+            builder.Services.AddScoped<IDbInitilazer, DbInitilazer>();
+
+            #endregion
+
             var app = builder.Build();
+
+            #region Add Kestrel Middelware
+
+            // Database Initilaizer
+            using var scope = app.Services.CreateScope();
+            var DbInitilaizer = scope.ServiceProvider.GetRequiredService<IDbInitilazer>();
+            await DbInitilaizer.InitilazeAsync();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment()) {
@@ -24,7 +48,8 @@ namespace GMS.MVC {
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}"); 
+            #endregion
 
             app.Run();
         }
