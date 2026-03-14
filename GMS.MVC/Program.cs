@@ -1,7 +1,7 @@
 using Domin.Contract;
 using Microsoft.EntityFrameworkCore;
 using Presistence.Data;
-using static System.Net.Mime.MediaTypeNames;
+using Presistence.Repositories;
 
 namespace GMS.MVC {
     public class Program {
@@ -20,6 +20,9 @@ namespace GMS.MVC {
 
             // Allow DI To DbInitilazer 
             builder.Services.AddScoped<IDbInitilazer, DbInitilazer>();
+
+            // Allow DI To UnitOfWork 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             #endregion
 
