@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.DTOs {
+namespace Shared.DTOs.MemberDTOs {
     public class MemberDTO {
         public int Id { get; set; }
         public string? Photo { get; set; }

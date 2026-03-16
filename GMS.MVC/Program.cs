@@ -2,6 +2,7 @@ using Domin.Contract;
 using Microsoft.EntityFrameworkCore;
 using Presistence.Data;
 using Presistence.Repositories;
+using Services.Mapping;
 
 namespace GMS.MVC {
     public class Program {
@@ -23,6 +24,10 @@ namespace GMS.MVC {
 
             // Allow DI To UnitOfWork 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Add AutoMapper To Services
+            builder.Services.AddAutoMapper(M => M.AddProfile(new MemberProfile()));
+            builder.Services.AddAutoMapper(M => M.AddProfile(new PlanProfile()));
 
             #endregion
 
