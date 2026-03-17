@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Data\DataSeeding\" />
   </ItemGroup>
 
 </Project>
