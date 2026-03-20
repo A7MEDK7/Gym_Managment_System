@@ -1,17 +1,15 @@
 using GMS.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Services.Abstraction.Contract;
+using Services.Implmentations;
 using System.Diagnostics;
 
 namespace GMS.MVC.Controllers {
-    public class HomeController : Controller {
-        private readonly ILogger<HomeController> _logger;
+    public class HomeController(IAnalyticsService _analyticsService, ILogger<HomeController> _logger) : Controller {
 
-        public HomeController(ILogger<HomeController> logger) {
-            _logger = logger;
-        }
-
-        public IActionResult Index() {
-            return View();
+        public async Task<IActionResult> Index() {
+            var analyticData = await _analyticsService.GetAnalyticData();
+            return View(analyticData);
         }
 
         public IActionResult Privacy() {

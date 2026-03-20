@@ -2,6 +2,8 @@ using Domin.Contract;
 using Microsoft.EntityFrameworkCore;
 using Presistence.Data;
 using Presistence.Repositories;
+using Services.Abstraction.Contract;
+using Services.Implmentations;
 using Services.Mapping;
 
 namespace GMS.MVC {
@@ -25,9 +27,14 @@ namespace GMS.MVC {
             // Allow DI To UnitOfWork 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // Allow DI To AnalyticsService
+            builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+
+
             // Add AutoMapper To Services
             builder.Services.AddAutoMapper(M => M.AddProfile(new MemberProfile()));
             builder.Services.AddAutoMapper(M => M.AddProfile(new PlanProfile()));
+            builder.Services.AddAutoMapper(M => M.AddProfile(new SessionProfile()));
 
             #endregion
 
@@ -63,3 +70,8 @@ namespace GMS.MVC {
         }
     }
 }
+
+// 1. Get Into Solution Folder
+// Get-ChildItem -Recurse | Unblock-File
+// dotnet clean
+// dotnet build

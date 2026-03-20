@@ -10,7 +10,13 @@ namespace Presistence.Repositories {
 
         public async Task<int> SaveChangesAsync()  => await _context.SaveChangesAsync();
         
-        public IPlanRepository GetPlanRepository() => new PlanRepository(_context);
+        public IPlanRepository GetPlanRepository()
+            => (IPlanRepository)_repositories.GetOrAdd(typeof(IPlanRepository).Name,
+                key => new PlanRepository(_context));
+
+        public ISessionRepository GetSessionRepository()
+            =>  (ISessionRepository) _repositories.GetOrAdd(typeof(ISessionRepository).Name,
+                key => new SessionRepository(_context));
 
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new()
             => (IGenericRepository<TEntity>)_repositories.GetOrAdd(typeof(TEntity).Name, 

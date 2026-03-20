@@ -10,5 +10,6 @@ namespace Domin.Contract {
         Task<int> SaveChangesAsync();
         IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new();
         IPlanRepository GetPlanRepository();
+        ISessionRepository GetSessionRepository();
     }
 }
