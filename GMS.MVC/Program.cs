@@ -28,7 +28,7 @@ namespace GMS.MVC {
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Allow DI To AnalyticsService
-            builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+            builder.Services.AddScoped<IServiceManger, ServiceManger>();
 
 
             // Add AutoMapper To Services

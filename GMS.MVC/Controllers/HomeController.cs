@@ -5,10 +5,10 @@ using Services.Implmentations;
 using System.Diagnostics;
 
 namespace GMS.MVC.Controllers {
-    public class HomeController(IAnalyticsService _analyticsService, ILogger<HomeController> _logger) : Controller {
+    public class HomeController(IServiceManger serviceManger, ILogger<HomeController> _logger) : Controller {
 
         public async Task<IActionResult> Index() {
-            var analyticData = await _analyticsService.GetAnalyticData();
+            var analyticData = await serviceManger.AnalyticsService.GetAnalyticData();
             return View(analyticData);
         }
 

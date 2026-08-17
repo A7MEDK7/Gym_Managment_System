@@ -15,6 +15,5 @@ namespace Services.Abstraction.Contract {
         Task<UpdateSessionDTO?> GetSessionToUpdate(int sessionId);
         Task<bool> UpdateSession(UpdateSessionDTO updateSessionDTO, int sessionId);
         Task<bool> RemoveSession(int sessionId);
-
     }
 }

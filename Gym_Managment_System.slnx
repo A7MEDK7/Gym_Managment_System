@@ -5,7 +5,6 @@
     <Project Path="GMS.Core/Service/Services.csproj" />
   </Folder>
   <Folder Name="/GMS.Infrastructure/">
-    <Project Path="GMS.Infrastructure/Presentation/Presentation.csproj" />
     <Project Path="GMS.Infrastructure/Presistence/Presistence.csproj" />
   </Folder>
   <Project Path="GMS.MVC/GMS.MVC.csproj" />

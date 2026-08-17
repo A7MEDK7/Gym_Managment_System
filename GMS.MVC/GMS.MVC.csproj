@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GMS.Infrastructure\Presentation\Presentation.csproj" />
     <ProjectReference Include="..\GMS.Infrastructure\Presistence\Presistence.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
