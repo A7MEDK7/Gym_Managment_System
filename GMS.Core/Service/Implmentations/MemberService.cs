@@ -28,8 +28,15 @@ namespace Services.Implmentations {
                 if (member is null) return null;
                 // Mapping From Member To MemberDetailsDTO
                 var memberResult = _mapper.Map<MemberDetailsDTO>(member);
+
+                //var memberShip = await _unitOfWork.GetRepository<MemberShip>().GetAllAsync(X => X.MemberId == memberId && X.Status == "Active");
+
+                // Compute 'now' Once So EF Can Translate The Comparison To SQL (Parameterized)
+                var now = DateTime.Now;
+
                 var memberShip = await _unitOfWork.GetRepository<MemberShip>()
-                                                  .GetAllAsync(X => X.MemberId == memberId && X.Status == "Active");
+                                                  .GetAllAsync(x => x.MemberId == memberId && x.EndDate >= now);
+
                 var activeMemberShip = memberShip.FirstOrDefault();
                 // Assign Dates To Member
                 if (activeMemberShip is not null) {
