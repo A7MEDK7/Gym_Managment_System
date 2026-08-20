@@ -17,7 +17,6 @@ namespace Shared.DTOs.MemberDTOs {
         public decimal Weight { get; set; }
 
         [Required(ErrorMessage = "BloodType Is Required")]
-        [StringLength(3, ErrorMessage = "BloodType Must Be 3 Letters Or Less")]
         public BloodType BloodType { get; set; }
 
         public string? Note { get; set; }

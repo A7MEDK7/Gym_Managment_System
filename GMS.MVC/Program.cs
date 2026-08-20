@@ -55,6 +55,7 @@ namespace GMS.MVC {
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
