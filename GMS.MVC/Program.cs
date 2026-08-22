@@ -35,6 +35,7 @@ namespace GMS.MVC {
             builder.Services.AddAutoMapper(M => M.AddProfile(new MemberProfile()));
             builder.Services.AddAutoMapper(M => M.AddProfile(new PlanProfile()));
             builder.Services.AddAutoMapper(M => M.AddProfile(new SessionProfile()));
+            builder.Services.AddAutoMapper(M => M.AddProfile(new TrainerProfile()));
 
             #endregion
 

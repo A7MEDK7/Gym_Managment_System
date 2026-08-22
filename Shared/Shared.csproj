@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="DTOs\TrainerDTOs\TrainerToUpdateDTO.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GMS.Core\Domin\Domin.csproj" />
   </ItemGroup>
 

@@ -62,7 +62,7 @@
                 <div class="col-12">
                     <div class="p-3 bg-light rounded">
                         <small class="text-muted d-block mb-1">@nameof(Model.Address)</small>
-                        <strong>@Model.Address</strong>
+                        <strong>@(Model.Address?.ToString() ?? "No Address")</strong>
                     </div>
                 </div>
             </div>

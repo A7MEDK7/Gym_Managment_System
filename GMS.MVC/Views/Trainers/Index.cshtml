@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MemberDTO>
+﻿@model IEnumerable<TrainerDTO>
 
 @if (TempData["SuccessMessage"] is not null) {
     <div id="Alert" class="alert alert-success alert-dismissible fade show">
@@ -20,8 +20,8 @@
 
 <div class="container">
     <header class="d-flex justify-content-end mt-5 mb-4 align-items-center">
-        <a asp-controller="Members" asp-action="Create" class="btn btn-fill fw-medium rounded-pill px-3 py-3">
-            + Add Member
+        <a asp-controller="Trainers" asp-action="Create" class="btn btn-fill fw-medium rounded-pill px-3 py-3">
+            + Add Trainer
         </a>
     </header>
 
@@ -30,34 +30,34 @@
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th><span>@nameof(MemberDTO.Photo)</span></th>
-                        <th><span>@nameof(MemberDTO.Name)</span></th>
-                        <th><span>@nameof(MemberDTO.Email)</span></th>
-                        <th><span>@nameof(MemberDTO.Gender)</span></th>
-                        <th><span>@nameof(MemberDTO.Phone)</span></th>
+                        <th><span>@nameof(TrainerDTO.Photo)</span></th>
+                        <th><span>@nameof(TrainerDTO.Name)</span></th>
+                        <th><span>@nameof(TrainerDTO.Email)</span></th>
+                        <th><span>@nameof(TrainerDTO.Gender)</span></th>
+                        <th><span>@nameof(TrainerDTO.Phone)</span></th>
                         <th><span>Action</span></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var member in Model) {
+                    @foreach (var trainer in Model) {
                         <tr>
 
                             <td>
                                 <span class="avatar">
-                                    @if (member.Photo is not null) {
-                                        <img src="~/images/@member.Photo" alt="Default Avatar" class="rounded-circle" style="width: 40px; height: 40px;" />
+                                    @if (trainer.Photo is not null) {
+                                        <img src="~/images/@trainer.Photo" alt="Default Avatar" class="rounded-circle" style="width: 40px; height: 40px;" />
                                     }
                                     else {
                                         <img src="~/images/User.png" alt="Default Avatar" class="rounded-circle" style="width: 40px; height: 40px;" />
                                     }
-                                
+
                                 </span>
                             </td>
-                            <td><span>@member.Name</span></td>
-                            <td><span>@member.Email</span></td>
-                            <td><span>@member.Phone</span></td>
-                            <td><span>@member.Gender</span></td>
+                            <td><span>@trainer.Name</span></td>
+                            <td><span>@trainer.Email</span></td>
+                            <td><span>@trainer.Phone</span></td>
+                            <td><span>@trainer.Gender</span></td>
 
                             <td class="action position-relative">
                                 <div class="dropdown">
@@ -69,41 +69,31 @@
                                     <ul class="dropdown-menu dropdown-menu-start"
                                         aria-labelledby="dropdownMenuButton-member.Id">
                                         <li>
-                                            <a asp-controller="Members" asp-action="MemberDetails" asp-route-id="@member.Id"
+                                            <a asp-controller="Trainers" asp-action="TrainerDetails" asp-route-id="@trainer.Id"
                                                class="dropdown-item d-flex align-items-center gap-3">
                                                 <img src="~/images/info 1.jpg" alt="info icon"
                                                      style="width: 20px; height: 20px;" />
-                                                <span>View @member.Name Data</span>
+                                                <span>View @trainer.Name Data</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a asp-controller="Members" asp-action="HealthRecordDetails" asp-route-id="@member.Id"
-                                               class="dropdown-item d-flex align-items-center gap-3">
-                                                <img src="~/images/info 1.jpg" alt="info icon"
-                                                     style="width: 20px; height: 20px;" />
-                                                <span>View Health Record Data</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             <hr class="dropdown-divider">
-                                        </li>
                                         <li>
-                                            <a asp-controller="Members" asp-action="EditMember" asp-route-id="@member.Id"
+                                            <a asp-controller="Trainers" asp-action="EditTrainer" asp-route-id="@trainer.Id"
                                                class="dropdown-item d-flex align-items-center gap-3">
                                                 <img src="~/images/edit.jpg" alt="edit icon"
                                                      style="width: 20px; height: 20px;" />
-                                                <span>Edit @member.Name Data</span>
+                                                <span>Edit @trainer.Name Data</span>
                                             </a>
                                         </li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
                                         <li>
-                                            <a asp-controller="Members" asp-action="Delete" asp-route-id="@member.Id"
+                                            <a asp-controller="Trainers" asp-action="Delete" asp-route-id="@trainer.Id"
                                                class="dropdown-item d-flex align-items-center gap-3 text-danger">
                                                 <img src="~/images/x-circle 1.jpg" alt="delete icon"
                                                      style="width: 20px; height: 20px;" />
-                                                <span>Delete @member.Name</span>
+                                                <span>Delete @trainer.Name</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -120,8 +110,8 @@
     else {
         <div class="text-center py-5">
             <i class="bi bi-person-workspace display-1 text-muted"></i>
-            <h4 class="mt-3 text-muted">No Members Available</h4>
-            <p class="text-muted">Add Your First Member To Get Started</p>
+            <h4 class="mt-3 text-muted">No Trainers Available</h4>
+            <p class="text-muted">Add Your First Trainer To Get Started</p>
         </div>
     }
 
@@ -141,4 +131,3 @@
         });
     </script>
 }
-

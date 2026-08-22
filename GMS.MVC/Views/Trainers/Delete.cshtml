@@ -1,0 +1,22 @@
+﻿<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-5 shadow text-center">
+                <h3>@ViewBag.TrainerName</h3>
+                <p class="fs-3 text-primary-color mb-4">Are You Sure You Want To Delete This Trainer?</p>
+
+                <div class="alert alert-warning text-start" role="alert">
+                    <strong>Warning!</strong> This Action Cannot Be Undone. All Member Data Will Be Permanently Deleted.
+                </div>
+
+                <form asp-action="DeleteTrainer" method="post" class="mt-4">
+                    <input hidden readonly name="id" value="@ViewBag.Id" />
+                    <div class="buttons d-flex justify-content-between gap-3">
+                        <a asp-controller="Members" asp-action="Index" class="btn-outline flex-fill">NO</a>
+                        <button type="submit" class="btn-fill flex-fill">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

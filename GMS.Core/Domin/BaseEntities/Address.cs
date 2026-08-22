@@ -9,5 +9,8 @@ namespace Domin.Entities {
         public int BuildingNumber { get; set; }
         public string Street { get; set; } = null!;
         public string City { get; set; } = null!;
+        public override string ToString() {
+            return $"Building Number: {BuildingNumber} - Street : {Street} - City : {City}";
+        }
     }
 }
