@@ -25,6 +25,12 @@ namespace Presistence.Repositories {
         public async Task<TEntity?> GetAsync(int id) 
             => await _context.Set<TEntity>().FindAsync(id);
 
+        public async Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity> specifications)
+            => await SpecificationsEvaluator.QetQuery(_context.Set<TEntity>(), specifications).ToListAsync();
+
+        public async Task<TEntity?> GetAsync(ISpecifications<TEntity> specifications)
+            => await SpecificationsEvaluator.QetQuery(_context.Set<TEntity>(), specifications).FirstOrDefaultAsync();
+
         public async Task AddAsync(TEntity entity)
             => await _context.Set<TEntity>().AddAsync(entity);
 

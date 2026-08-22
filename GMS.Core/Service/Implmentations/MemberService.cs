@@ -3,7 +3,9 @@ using AutoMapper.Execution;
 using Domin.Contract;
 using Domin.GymEntities;
 using Services.Abstraction.Contract;
+using Services.Specifications;
 using Shared.DTOs.MemberDTOs;
+using System.Xml;
 using Member = Domin.GymEntities.Member;
 
 namespace Services.Implmentations {
@@ -77,7 +79,7 @@ namespace Services.Implmentations {
             }
         }
         public async Task<MemberToUpdateDTO?> GetMemberToUpdate(int memberId) {
-            var member = await _unitOfWork.GetRepository<Member>().GetAsync(memberId);
+            var member = await _unitOfWork.GetRepository<Member>().GetAsync(new MemberWithHealthRecordSpecification(memberId));
             if(member is null) return null;
             var memberResult = _mapper.Map<MemberToUpdateDTO>(member);
             return memberResult;
@@ -89,7 +91,7 @@ namespace Services.Implmentations {
                 // Check If User Insert Email or Phone Is Already Exist
                 if (await IsEmailExist(memberId, memberToUpdateDTO.Email) || await IsPhoneExist(memberId, memberToUpdateDTO.Phone)) return false;
                 // Get The Member From Database And Check
-                var memberToUpdate = await memberRepo.GetAsync(memberId);
+                var memberToUpdate = await memberRepo.GetAsync(new MemberWithHealthRecordSpecification(memberId));
                 if (memberToUpdate is null) return false;
                 // Update The Member Details
                 memberToUpdate.Name = memberToUpdateDTO.Name;
@@ -113,12 +115,13 @@ namespace Services.Implmentations {
         }
         public async Task<bool> RemoveMember(int memberId) {
             var memberRepo = _unitOfWork.GetRepository<Member>();
-            var member = await memberRepo.GetAsync(memberId);
+            // Get Member With His Session
+            var member = await memberRepo.GetAsync(new MemberWitSessionSpecification(memberId));
             if (member is null) return false;
             // Get Member Sessions To Check That The Selected Member Does Not Has Any Booking Session
-            var hasActiveMemberSessions = await _unitOfWork.GetRepository<MemberSession>()
-                                                        .GetAllAsync(X => X.MemberId == memberId && X.Session.StartDate > DateTime.Now);
-            if (hasActiveMemberSessions is not null) return false;
+            var ActiveMemberSessions = await _unitOfWork.GetRepository<MemberSession>()
+                                                           .GetAllAsync(X => X.MemberId == memberId && X.Session.StartDate > DateTime.Now);
+            if (ActiveMemberSessions.Any()) return false;
             // Get MemberShips To Delete It Then Delete The Member
             var memberShips = await _unitOfWork.GetRepository<MemberShip>().GetAllAsync(X => X.MemberId == memberId);
             try {
