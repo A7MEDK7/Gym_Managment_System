@@ -59,7 +59,7 @@ namespace Services.Implmentations {
         #region Helper Methods
         private async Task<bool> HasActiveMemberships(int planId) {
             var activeMemberships = await _unitOfWork.GetRepository<MemberShip>()
-                                                     .GetAllAsync(X => X.PlanId == planId && X.Status == "Active");
+                            .GetAllAsync(x => x.PlanId == planId && x.EndDate >= DateTime.Now);
             return activeMemberships.Any();
         }
         #endregion
