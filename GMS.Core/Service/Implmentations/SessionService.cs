@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using Domin.Contract;
 using Domin.GymEntities;
-using GymManagementSystemBLL.ViewModels.SessionViewModels;
 using Services.Abstraction.Contract;
 using Shared.DTOs.SessionDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shared.DTOs.TrainerDTOs;
 
 namespace Services.Implmentations {
     public class SessionService(IUnitOfWork _unitOfWork, IMapper _mapper) : ISessionService {
@@ -58,19 +53,19 @@ namespace Services.Implmentations {
         }
         public async Task<bool> UpdateSession(UpdateSessionDTO updateSessionDTO, int sessionId) {
             try {
-                var session = await _unitOfWork.GetSessionRepository().GetAsync(sessionId);
-                // Make All Checks Before Updating
-                if (!await IsSessionAllowedForUpdatingOrRemoving(session!)) return false;
-                if (!await IsTrainerExist(updateSessionDTO!.TrainerId)) return false;
-                if (!await IsCategoryExist(updateSessionDTO!.CategoryId)) return false;
-                if (!IsTimeValid(updateSessionDTO!.StartDate, updateSessionDTO!.EndDate)) return false;
-                // Map To Session THen Update Session
-                _mapper.Map<UpdateSessionDTO>(session);
-                session!.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
-                _unitOfWork.GetRepository<Session>().Update(session!);
+                var sessionRepo = _unitOfWork.GetSessionRepository();
+                var session = await sessionRepo.GetAsync(sessionId);
+                if (session is null) return false;
+                if (!await IsSessionAllowedForUpdatingOrRemoving(session)) return false;
+                if (!await IsTrainerExist(updateSessionDTO.TrainerId)) return false;
+                if (!await IsCategoryExist(updateSessionDTO.CategoryId)) return false; 
+                if (!IsTimeValid(updateSessionDTO.StartDate, updateSessionDTO.EndDate)) return false;
+                _mapper.Map(updateSessionDTO, session);
+                session.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
+                sessionRepo.Update(session);
                 return await _unitOfWork.SaveChangesAsync() > 0;
             } catch (Exception ex) {
-                Console.WriteLine($"Updating Session Failed : {ex.ToString()}");
+                Console.WriteLine($"Updating Session Failed: {ex}");
                 return false;
             }
         }
@@ -85,6 +80,14 @@ namespace Services.Implmentations {
                 Console.WriteLine($"Removing Session Failed : {ex.ToString()}");
                 return false;
             }
+        }
+        public async Task<IEnumerable<TrainerSelectDTO>> GetTrainersForDropdown() {
+            var trainers = await _unitOfWork.GetRepository<Trainer>().GetAllAsync();
+            return _mapper.Map<IEnumerable<TrainerSelectDTO>>(trainers);
+        }
+        public async Task<IEnumerable<CategorySelectDTO>> GetCategoriesForDropdown() {
+            var categories = await _unitOfWork.GetRepository<Category>().GetAllAsync();
+            return _mapper.Map<IEnumerable<CategorySelectDTO>>(categories);
         }
 
         #region Private Helper Methods
@@ -104,7 +107,7 @@ namespace Services.Implmentations {
             if (hasActiveBooking) return false;
             // All Ckecks true
             return true;
-        } 
+        }
         #endregion
     }
 }

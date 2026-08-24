@@ -1,11 +1,5 @@
-﻿using Domin.GymEntities;
-using GymManagementSystemBLL.ViewModels.SessionViewModels;
-using Shared.DTOs.SessionDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared.DTOs.SessionDTOs;
+using Shared.DTOs.TrainerDTOs;
 
 namespace Services.Abstraction.Contract {
     public interface ISessionService {
@@ -15,5 +9,7 @@ namespace Services.Abstraction.Contract {
         Task<UpdateSessionDTO?> GetSessionToUpdate(int sessionId);
         Task<bool> UpdateSession(UpdateSessionDTO updateSessionDTO, int sessionId);
         Task<bool> RemoveSession(int sessionId);
+        Task<IEnumerable<TrainerSelectDTO>> GetTrainersForDropdown();
+        Task<IEnumerable<CategorySelectDTO>> GetCategoriesForDropdown();
     }
 }

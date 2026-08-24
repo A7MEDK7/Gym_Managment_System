@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GymManagementSystemBLL.ViewModels.SessionViewModels
-{
+namespace Shared.DTOs.SessionDTOs {
 	public class CreateSessionDTO
 	{
 		[Required(ErrorMessage = "Description is required")]

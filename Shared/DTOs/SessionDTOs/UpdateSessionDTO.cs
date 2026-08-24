@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GymManagementSystemBLL.ViewModels.SessionViewModels
-{
-	public class UpdateSessionDTO
-	{
-		[Required(ErrorMessage = "Description is required")]
+namespace Shared.DTOs.SessionDTOs {
+	public class UpdateSessionDTO {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Description is required")]
 		[StringLength(500, MinimumLength = 10, ErrorMessage = "Description must be between 10 and 500 characters")]
 		public string Description { get; set; } = null!;
 

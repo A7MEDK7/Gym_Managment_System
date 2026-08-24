@@ -33,6 +33,8 @@ namespace Services.Mapping {
                     dest.Address.City = src.City;
                     dest.Address.Street = src.Street;
             });
+
+            CreateMap<Trainer, TrainerSelectDTO>();
         }
     }
 }

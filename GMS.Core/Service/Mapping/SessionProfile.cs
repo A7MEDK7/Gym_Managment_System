@@ -1,13 +1,6 @@
 ﻿using AutoMapper;
 using Domin.GymEntities;
-using GymManagementSystemBLL.ViewModels.SessionViewModels;
 using Shared.DTOs.SessionDTOs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Mapping {
     public class SessionProfile : Profile {
@@ -20,6 +13,8 @@ namespace Services.Mapping {
             CreateMap<CreateSessionDTO, Session>();
 
             CreateMap<UpdateSessionDTO, Session>().ReverseMap();
+
+            CreateMap<Category, CategorySelectDTO>();
         }
 
     }

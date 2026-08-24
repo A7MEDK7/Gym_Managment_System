@@ -40,7 +40,7 @@ namespace GMS.MVC.Controllers {
                 return View(nameof(Create), createTrainerDTO);
             }
 
-            // Create The Memeber
+            // Create The Trainer
             var result = await serviceManger.TrainerService.CreateTrainer(createTrainerDTO);
 
             if (result) {
